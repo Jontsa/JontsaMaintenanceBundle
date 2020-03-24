@@ -6,7 +6,7 @@
 
     <services>
         <service id="Jontsa\Bundle\MaintenanceBundle\Maintenance" public="false">
-            <argument>%kernel.project_dir%/var/lock/maintenance_mode</argument>
+            <argument>%jontsa_maintenance.lock_path%</argument>
         </service>
 
         <service id="Jontsa\Bundle\MaintenanceBundle\EventListener\MaintenanceListener" public="false">

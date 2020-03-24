@@ -24,6 +24,7 @@ class JontsaMaintenanceExtension extends Extension
         $loader->load('services.xml');
 
         $container->setParameter('jontsa_maintenance.whitelist.ip', $config['whitelist']['ip']);
+        $container->setParameter('jontsa_maintenance.lock_path', $config['lock_path']);
 
     }
 
