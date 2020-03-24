@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Jontsa\Bundle\MaintenanceBundle\Maintenance" public="false">
+            <argument>%kernel.project_dir%/var/lock/maintenance_mode</argument>
+        </service>
+
+        <service id="Jontsa\Bundle\MaintenanceBundle\EventListener\MaintenanceListener" public="false">
+            <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
+            <argument>%jontsa_maintenance.whitelist.ip%</argument>
+        </service>
+
+        <service id="Jontsa\Bundle\MaintenanceBundle\Command\EnableMaintenanceCommand" public="false">
+            <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Jontsa\Bundle\MaintenanceBundle\Command\DisableMaintenanceCommand" public="false">
+            <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
+            <tag name="console.command"/>
+        </service>
+
+    </services>
+</container>
