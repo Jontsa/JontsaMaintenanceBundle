@@ -10,10 +10,18 @@
     "symfony/config": "^4.0|^5.0",
     "symfony/dependency-injection": "^4.0|^5.0"
   },
+  "require-dev": {
+    "symfony/phpunit-bridge": "^4.0|^5.0"
+  },
 
   "autoload": {
     "psr-4": {
       "Jontsa\\Bundle\\MaintenanceBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jontsa\\Bundle\\MaintenanceBundle\\Tests": "Tests/"
     }
   }
 }
