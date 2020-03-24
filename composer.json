@@ -1,6 +1,7 @@
 {
   "name": "jontsa/maintenance-bundle",
   "description": "Symfony bundle to put your site in to maintenance mode.",
+  "license": "MIT",
   "type": "symfony-bundle",
 
   "require": {
@@ -21,7 +22,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Jontsa\\Bundle\\MaintenanceBundle\\Tests": "Tests/"
+      "Jontsa\\Bundle\\MaintenanceBundle\\Tests\\": "Tests/"
     }
   }
 }
