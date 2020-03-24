@@ -12,6 +12,8 @@
         <service id="Jontsa\Bundle\MaintenanceBundle\EventListener\MaintenanceListener" public="false">
             <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
             <argument>%jontsa_maintenance.whitelist.ip%</argument>
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="255" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
 
         <service id="Jontsa\Bundle\MaintenanceBundle\Command\EnableMaintenanceCommand" public="false">
