@@ -12,6 +12,7 @@ will receive either default Symfony error page or JSON message with correct HTTP
 - Responds with HTTP 503 to requests during maintenance
 - Optional IP-address whitelist. For example to allow access for load balancer health checks during maintenance.
 - Lightweight bundle
+- [Recipes for Deployer](https://github.com/Jontsa/JontsaMaintenanceBundle/Resources/doc/deployer-recipe.md)
 
 ## Requirements
 
