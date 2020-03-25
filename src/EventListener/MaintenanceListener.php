@@ -82,7 +82,7 @@ class MaintenanceListener
      *
      * @return bool
      */
-    public function inMaintenance() : bool
+    protected function inMaintenance() : bool
     {
         return $this->maintenance->isEnabled();
     }

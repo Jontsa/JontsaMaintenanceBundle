@@ -14,14 +14,13 @@ class MaintenanceTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->lockFile = '/tmp/maintenance_test.' . \random_bytes(5);
+        $this->lockFile = '/tmp/maintenance_test.' . \bin2hex(\random_bytes(10));
+        $this->resetTempFile();
     }
 
     public function tearDown(): void
     {
-        if (true === \file_exists($this->lockFile)) {
-            \unlink($this->lockFile);
-        }
+        $this->resetTempFile();
     }
 
     /**
@@ -70,6 +69,13 @@ class MaintenanceTest extends TestCase
     private function createClass() : Maintenance
     {
         return new Maintenance($this->lockFile);
+    }
+
+    private function resetTempFile() : void
+    {
+        if (true === \file_exists($this->lockFile)) {
+            \unlink($this->lockFile);
+        }
     }
 
 }
