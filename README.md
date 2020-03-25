@@ -1,8 +1,8 @@
 # Symfony maintenance mode bundle
 
 A small bundle for Symfony 4/5 which provides commands to put your application in maintenance break during which
-all requests receive HTTP 503 response. Optionally you can whitelist your own IP-address or for example
-your load balancer for health check pings.
+all requests receive HTTP 503 response. This is done by throwing `ServiceUnavailableHttpException` and clients
+will receive either default Symfony error page or JSON message with correct HTTP status code.
 
 ![Tests](https://github.com/Jontsa/JontsaMaintenanceBundle/workflows/Tests/badge.svg)
 
@@ -10,7 +10,7 @@ your load balancer for health check pings.
 
 - Put your site to maintenance mode with single command
 - Responds with HTTP 503 to requests during maintenance
-- Optional IP-address whitelist to allow traffic from
+- Optional IP-address whitelist. For example to allow access for load balancer health checks during maintenance.
 - Lightweight bundle
 
 ## Requirements
@@ -73,3 +73,7 @@ jontsa_maintenance:
 
 - `ip` is an array of IP-addresses or networks which are allowed to access applications even during maintenance
 - `lock_path` is the file path which is created during maintenance
+
+### Custom error page
+
+If you want to customize the error page, check out [Symfony documentation](https://symfony.com/doc/current/controller/error_pages.html).
