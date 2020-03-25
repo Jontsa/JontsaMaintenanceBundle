@@ -7,13 +7,9 @@ use Jontsa\Bundle\MaintenanceBundle\EventListener\MaintenanceListener;
 use Jontsa\Bundle\MaintenanceBundle\Maintenance;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class MaintenanceListenerTest extends TestCase
 {
@@ -71,17 +67,6 @@ class MaintenanceListenerTest extends TestCase
     }
 
     /**
-     * @param Request $request
-     * @return ResponseEvent|MockObject
-     */
-    private function createResponseEvent(Request $request) : ResponseEvent
-    {
-        $response = new Response();
-        $kernel = $this->createMock(HttpKernelInterface::class);
-        return new ResponseEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, $response);
-    }
-
-    /**
      * @test
      */
     public function nonMasterRequestsAreIgnored()
@@ -134,75 +119,6 @@ class MaintenanceListenerTest extends TestCase
         $event = $this->mockMasterRequestEvent();
         $listener = $this->createListener();
         $listener->onKernelRequest($event);
-    }
-
-    /**
-     * @test
-     */
-    public function nothingHappensInKernelResponseWhenNotInMaintenance()
-    {
-        $request = $this->createMock(Request::class);
-        $request
-            ->expects($this->never())
-            ->method('getContentType');
-        $event = $this->createResponseEvent($request);
-        $listener = $this->createListener();
-        $listener->onKernelResponse($event);
-    }
-
-    /**
-     * @test
-     */
-    public function nothingHappensInKernelResponseWhenNotUsingJsonRequest()
-    {
-        $request = new Request();
-
-        $this->maintenance
-            ->expects($this->once())
-            ->method('isEnabled')
-            ->willReturn(true);
-
-        $requestEvent = $this->mockMasterRequestEvent();
-        $listener = $this->createListener();
-
-        try {
-            $listener->onKernelRequest($requestEvent);
-        } catch(ServiceUnavailableHttpException $e) {
-            // do nothing
-        }
-
-        $event = $this->createResponseEvent($request);
-        $response = $event->getResponse();
-        $listener->onKernelResponse($event);
-
-        $this->assertSame($response, $event->getResponse(), 'Response object should not have changed.');
-    }
-
-    /**
-     * @test
-     */
-    public function responseIsConvertedToJson()
-    {
-        $request = new Request([], [], [], [], [], ['CONTENT_TYPE' => 'application/json']);
-
-        $this->maintenance
-            ->expects($this->once())
-            ->method('isEnabled')
-            ->willReturn(true);
-
-        $requestEvent = $this->mockMasterRequestEvent();
-        $listener = $this->createListener();
-
-        try {
-            $listener->onKernelRequest($requestEvent);
-        } catch(ServiceUnavailableHttpException $e) {
-            // do nothing
-        }
-
-        $event = $this->createResponseEvent($request);
-        $listener->onKernelResponse($event);
-
-        $this->assertInstanceOf(JsonResponse::class, $event->getResponse(), 'Response object should be JsonResponse when content type is json.');
     }
 
 }

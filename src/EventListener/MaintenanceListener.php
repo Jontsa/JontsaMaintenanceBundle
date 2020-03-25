@@ -4,10 +4,7 @@ declare(strict_types=1);
 namespace Jontsa\Bundle\MaintenanceBundle\EventListener;
 
 use Jontsa\Bundle\MaintenanceBundle\Maintenance;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\HttpFoundation\IpUtils;
 
@@ -26,11 +23,6 @@ class MaintenanceListener
      * @var array|null
      */
     protected $ips;
-
-    /**
-     * @var bool
-     */
-    protected $handleResponse = false;
 
     public function __construct(Maintenance $maintenance, ?array $ips = null)
     {
@@ -55,25 +47,7 @@ class MaintenanceListener
         }
 
         if (true === $this->inMaintenance()) {
-            $this->handleResponse = true;
             throw new ServiceUnavailableHttpException();
-        }
-    }
-
-    /**
-     * If request was JSON, make sure we respond in kind.
-     *
-     * @param ResponseEvent $event
-     */
-    public function onKernelResponse(ResponseEvent $event) : void
-    {
-        if (true === $this->handleResponse) {
-            $request = $event->getRequest();
-            if ('json' === $request->getContentType()) {
-                $response = new JsonResponse([], Response::HTTP_SERVICE_UNAVAILABLE);
-                $response->headers->set('Content-Type', 'application/problem+json');
-                $event->setResponse($response);
-            }
         }
     }
 
