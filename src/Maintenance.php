@@ -23,7 +23,7 @@ class Maintenance
      */
     public function isEnabled() : bool
     {
-        return (true === file_exists($this->filePath));
+        return (true === \file_exists($this->filePath));
     }
 
     /**
@@ -48,12 +48,12 @@ class Maintenance
 
     protected function createLock() : void
     {
-        fopen($this->filePath, 'w+');
+        \touch($this->filePath);
     }
 
     protected function createUnlock() : void
     {
-        @unlink($this->filePath);
+        @\unlink($this->filePath);
     }
 
 }

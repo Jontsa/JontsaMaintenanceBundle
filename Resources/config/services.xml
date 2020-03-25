@@ -15,12 +15,7 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
-        <service id="Jontsa\Bundle\MaintenanceBundle\Command\EnableMaintenanceCommand" public="false">
-            <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
-            <tag name="console.command"/>
-        </service>
-
-        <service id="Jontsa\Bundle\MaintenanceBundle\Command\DisableMaintenanceCommand" public="false">
+        <service id="Jontsa\Bundle\MaintenanceBundle\Command\MaintenanceCommand" public="false">
             <argument type="service" id="Jontsa\Bundle\MaintenanceBundle\Maintenance" />
             <tag name="console.command"/>
         </service>
