@@ -4,6 +4,8 @@ A small bundle for Symfony 4/5 which provides commands to put your application i
 all requests receive HTTP 503 response. Optionally you can whitelist your own IP-address or for example
 your load balancer for health check pings.
 
+![Tests](https://github.com/Jontsa/JontsaMaintenanceBundle/workflows/Tests/badge.svg)
+
 ## Features
 
 - Put your site to maintenance mode with single command
