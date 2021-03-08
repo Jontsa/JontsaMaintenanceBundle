@@ -5,7 +5,7 @@
   "type": "symfony-bundle",
 
   "require": {
-    "php": "^7.1",
+    "php": "^7.1|^8.0",
     "symfony/http-kernel": "^4.4|^5.1",
     "symfony/console": "^4.4|^5.1",
     "symfony/config": "^4.4|^5.1",
@@ -22,7 +22,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Jontsa\\Bundle\\MaintenanceBundle\\Tests\\": "Tests/"
+      "Jontsa\\Bundle\\MaintenanceBundle\\Tests\\": "tests/"
     }
   }
 }
