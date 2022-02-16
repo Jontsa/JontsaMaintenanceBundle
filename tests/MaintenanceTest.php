@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class MaintenanceTest extends TestCase
 {
 
-    private $lockFile;
+    private string $lockFile;
 
     public function setUp(): void
     {

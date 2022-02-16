@@ -15,7 +15,7 @@ class MaintenanceCommand extends Command
 
     protected static $defaultName = 'jontsa:maintenance';
 
-    private $maintenance;
+    private Maintenance $maintenance;
 
     public function __construct(Maintenance $maintenance, string $name = null)
     {
@@ -44,13 +44,11 @@ class MaintenanceCommand extends Command
             default:
                 throw new InvalidArgumentException(sprintf('Unsupported action "%s".', $action));
         }
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
      * Enables maintenance mode if not yet enabled.
-     *
-     * @param OutputInterface $output
      */
     private function enable(OutputInterface $output) : void
     {
@@ -64,8 +62,6 @@ class MaintenanceCommand extends Command
 
     /**
      * Disables maintenance mode if enabled.
-     *
-     * @param OutputInterface $output
      */
     private function disable(OutputInterface $output) : void
     {
