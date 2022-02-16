@@ -40,7 +40,7 @@ class MaintenanceListenerTest extends TestCase
         $mock = $this->createMock(RequestEvent::class);
         $mock
             ->expects($this->once())
-            ->method('isMasterRequest')
+            ->method('isMainRequest')
             ->willReturn(true);
         $mock
             ->expects($this->once())
@@ -58,7 +58,7 @@ class MaintenanceListenerTest extends TestCase
         $mock = $this->createMock(RequestEvent::class);
         $mock
             ->expects($this->once())
-            ->method('isMasterRequest')
+            ->method('isMainRequest')
             ->willReturn(false);
         $mock
             ->expects($this->never())

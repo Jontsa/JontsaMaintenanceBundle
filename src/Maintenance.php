@@ -9,7 +9,7 @@ namespace Jontsa\Bundle\MaintenanceBundle;
 class Maintenance
 {
 
-    protected $filePath;
+    protected string $filePath;
 
     public function __construct(string $filePath)
     {
@@ -18,8 +18,6 @@ class Maintenance
 
     /**
      * Check if maintenance mode is active.
-     *
-     * @return bool
      */
     public function isEnabled() : bool
     {

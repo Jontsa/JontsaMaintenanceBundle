@@ -14,15 +14,9 @@ use Symfony\Component\HttpFoundation\IpUtils;
 class MaintenanceListener
 {
 
-    /**
-     * @var Maintenance
-     */
-    protected $maintenance;
+    protected Maintenance $maintenance;
 
-    /**
-     * @var array|null
-     */
-    protected $ips;
+    protected ?array $ips;
 
     public function __construct(Maintenance $maintenance, ?array $ips = null)
     {
@@ -36,7 +30,7 @@ class MaintenanceListener
      */
     public function onKernelRequest(RequestEvent $event) : void
     {
-        if(false === $event->isMasterRequest()){
+        if(false === $event->isMainRequest()){
             return;
         }
 
@@ -53,8 +47,6 @@ class MaintenanceListener
 
     /**
      * Check if maintenance mode is active.
-     *
-     * @return bool
      */
     protected function inMaintenance() : bool
     {
@@ -72,7 +64,7 @@ class MaintenanceListener
     {
         $ips = array_filter((array) $ips);
 
-        foreach ((array) $ips as $ip) {
+        foreach ($ips as $ip) {
             if (true === IpUtils::checkIp($requestedIp, $ip)) {
                 return true;
             }
