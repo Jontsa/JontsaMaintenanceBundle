@@ -16,8 +16,8 @@ will receive either default Symfony error page or JSON message with correct HTTP
 
 ## Requirements
 
-- Symfony 4 or 5
-- PHP 7.1+
+- Symfony 5+
+- PHP 7.4+
 - composer
 
 ## Installation
