@@ -14,11 +14,11 @@ class Configuration implements ConfigurationInterface
     /**
      * @inheritDoc
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('jontsa_maintenance');
         /** @var NodeDefinition|ArrayNodeDefinition $rootNode */
-        $rootNode = method_exists(TreeBuilder::class, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('jontsa_maintenance');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->addDefaultsIfNotSet()

@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ '7.4', '8.0' ]
+        php: [ '7.4', '8.0', '8.1' ]
+        symfony: ['^5.4', '^6.0']
     name: PHP ${{ matrix.php }} CI
 
     steps:
@@ -22,9 +23,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: symfony
 
       - name: Validate composer.json and composer.lock
         run: composer validate
+
+      -
+        name: Restrict Symfony version
+        if: matrix.symfony != ''
+        run: |
+          composer global config --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins "symfony/flex:1.18.5"
+          composer config extra.symfony.require "${{ matrix.symfony }}"
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
