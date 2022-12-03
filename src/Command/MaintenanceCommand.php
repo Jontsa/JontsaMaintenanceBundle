@@ -25,7 +25,7 @@ class MaintenanceCommand extends Command
         $this->maintenance = $maintenance;
     }
 
-    public function configure()
+    public function configure() : void
     {
         $this
             ->setDescription('Activates maintenance mode for the application.')
@@ -34,6 +34,7 @@ class MaintenanceCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output) : int
     {
+        /** @var string $action */
         $action = $input->getArgument('action');
 
         switch($action) {

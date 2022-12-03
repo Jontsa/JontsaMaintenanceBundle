@@ -15,7 +15,7 @@ class MaintenanceListenerTest extends TestCase
 {
 
     /**
-     * @var Maintenance|MockObject
+     * @var Maintenance&MockObject
      */
     private $maintenance;
 
@@ -25,18 +25,21 @@ class MaintenanceListenerTest extends TestCase
         $this->maintenance = $this->createMock(Maintenance::class);
     }
 
+    /**
+     * @param string[]|null $ips
+     */
     private function createListener(?array $ips = null) : MaintenanceListener
     {
         return new MaintenanceListener($this->maintenance, $ips);
     }
 
     /**
-     * @return RequestEvent|MockObject
+     * @return RequestEvent&MockObject
      */
     private function mockMasterRequestEvent() : RequestEvent
     {
         $request = new Request([], [], [], [], [], ['REMOTE_ADDR' => '1.1.1.1']);
-        /** @var RequestEvent|MockObject $mock */
+        /** @var RequestEvent&MockObject $mock */
         $mock = $this->createMock(RequestEvent::class);
         $mock
             ->expects($this->once())
@@ -50,11 +53,11 @@ class MaintenanceListenerTest extends TestCase
     }
 
     /**
-     * @return RequestEvent|MockObject
+     * @return RequestEvent&MockObject
      */
     private function mockNonMasterRequestEvent() : RequestEvent
     {
-        /** @var RequestEvent|MockObject $mock */
+        /** @var RequestEvent&MockObject $mock */
         $mock = $this->createMock(RequestEvent::class);
         $mock
             ->expects($this->once())
@@ -69,7 +72,7 @@ class MaintenanceListenerTest extends TestCase
     /**
      * @test
      */
-    public function nonMasterRequestsAreIgnored()
+    public function nonMasterRequestsAreIgnored() : void
     {
         $event = $this->mockNonMasterRequestEvent();
         $listener = $this->createListener();
@@ -79,7 +82,7 @@ class MaintenanceListenerTest extends TestCase
     /**
      * @test
      */
-    public function requestsFromWhiteListedIpAddressesAreIgnored()
+    public function requestsFromWhiteListedIpAddressesAreIgnored() : void
     {
         $this->maintenance
             ->expects($this->never())
@@ -93,7 +96,7 @@ class MaintenanceListenerTest extends TestCase
     /**
      * @test
      */
-    public function nothingHappensIfMaintenanceIsNotEnabled()
+    public function nothingHappensIfMaintenanceIsNotEnabled() : void
     {
         $this->maintenance
             ->expects($this->once())
@@ -108,7 +111,7 @@ class MaintenanceListenerTest extends TestCase
     /**
      * @test
      */
-    public function requestThrowsExceptionDuringMaintenance()
+    public function requestThrowsExceptionDuringMaintenance() : void
     {
         $this->maintenance
             ->expects($this->once())

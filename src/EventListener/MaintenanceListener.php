@@ -16,8 +16,14 @@ class MaintenanceListener
 
     protected Maintenance $maintenance;
 
+    /**
+     * @var string[]|null
+     */
     protected ?array $ips;
 
+    /**
+     * @param string[]|null $ips
+     */
     public function __construct(Maintenance $maintenance, ?array $ips = null)
     {
         $this->ips = $ips;
@@ -56,12 +62,16 @@ class MaintenanceListener
     /**
      * Checks if the requested ip is valid.
      *
-     * @param string       $requestedIp
-     * @param string|array|null $ips
+     * @param string|null $requestedIp
+     * @param string|string[]|null $ips
      * @return bool
      */
-    protected function checkIps(string $requestedIp, $ips) : bool
+    protected function checkIps(?string $requestedIp, $ips) : bool
     {
+        if (!$requestedIp) {
+            return false;
+        }
+
         $ips = array_filter((array) $ips);
 
         foreach ($ips as $ip) {
