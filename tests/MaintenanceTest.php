@@ -26,7 +26,7 @@ class MaintenanceTest extends TestCase
     /**
      * @test
      */
-    public function maintenanceIsNotEnabledByDefault()
+    public function maintenanceIsNotEnabledByDefault() : void
     {
         $maintenance = $this->createClass();
         $this->assertFalse($maintenance->isEnabled());
@@ -36,7 +36,7 @@ class MaintenanceTest extends TestCase
      * @test
      * @depends maintenanceIsNotEnabledByDefault
      */
-    public function doesNothingWhenDisablingMaintenanceWhileNotInMaintenance()
+    public function doesNothingWhenDisablingMaintenanceWhileNotInMaintenance() : void
     {
         $maintenance = $this->createClass();
         $maintenance->disable();
@@ -46,7 +46,7 @@ class MaintenanceTest extends TestCase
     /**
      * @test
      */
-    public function enablesMaintenance()
+    public function enablesMaintenance() : void
     {
         $maintenance = $this->createClass();
         $maintenance->enable();
@@ -57,7 +57,7 @@ class MaintenanceTest extends TestCase
     /**
      * @test
      */
-    public function disablesMaintenance()
+    public function disablesMaintenance() : void
     {
         $maintenance = $this->createClass();
         $maintenance->enable();

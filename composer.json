@@ -11,9 +11,6 @@
     "symfony/config": "^5.3|^6.0",
     "symfony/dependency-injection": "^5.3|^6.0"
   },
-  "require-dev": {
-    "symfony/phpunit-bridge": "^5.3|^6.0"
-  },
   "autoload": {
     "psr-4": {
       "Jontsa\\Bundle\\MaintenanceBundle\\": "src/"
@@ -23,5 +20,8 @@
     "psr-4": {
       "Jontsa\\Bundle\\MaintenanceBundle\\Tests\\": "tests/"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
   }
 }
