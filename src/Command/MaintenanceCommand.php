@@ -15,8 +15,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class MaintenanceCommand extends Command
 {
 
-    protected static $defaultName = 'jontsa:maintenance';
-
     private Maintenance $maintenance;
 
     public function __construct(Maintenance $maintenance, string $name = null)
